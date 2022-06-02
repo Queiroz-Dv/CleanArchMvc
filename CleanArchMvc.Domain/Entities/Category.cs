@@ -28,10 +28,14 @@ namespace CleanArchMvc.Domain.Entities
 
             DomainExceptionValidation.When(name.Length < 3,
                 "Invalid name, too short, minimum 3 characters");
+            SetNameValue(name);
+        }
 
+        private void SetNameValue(string name)
+        {
             Name = name;
         }
-    
+
         public void Update(string name)
         {
             ValidateDomain(name);
