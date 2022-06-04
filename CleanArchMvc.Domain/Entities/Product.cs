@@ -6,16 +6,16 @@ namespace CleanArchMvc.Domain.Entities
     public sealed class Product : Entity 
     {
             // Construtores
-        public Product(string name, string descripition, decimal price, int stock, string image)
+        public Product(string name, string description, decimal price, int stock, string image)
         {
-            ValidateDomain(name, descripition, price, stock, image);
+            ValidateDomain(name, description, price, stock, image);
         }
 
-        public Product(int id, string name, string descripition, decimal price, int stock, string image)
+        public Product(int id, string name, string description, decimal price, int stock, string image)
         {
             DomainExceptionValidation.When(id < 0, "Invalid Id value.");
             Id = id;
-            ValidateDomain(name, descripition, price, stock, image);
+            ValidateDomain(name, description, price, stock, image);
         }
 
             // Propriedades
@@ -29,7 +29,7 @@ namespace CleanArchMvc.Domain.Entities
 
         
              // Comportamentos
-        private void ValidateDomain(string name, string descripition, decimal price, int stock, string image)
+        private void ValidateDomain(string name, string description, decimal price, int stock, string image)
         {
             // Validações
 
@@ -41,10 +41,10 @@ namespace CleanArchMvc.Domain.Entities
                 "Invalid name, too short, minimum 3 characters.");
 
 
-            DomainExceptionValidation.When(string.IsNullOrEmpty(descripition),
+            DomainExceptionValidation.When(string.IsNullOrEmpty(description),
                 "Invalid description. Description is required.");
 
-            DomainExceptionValidation.When(descripition.Length < 5,
+            DomainExceptionValidation.When(description.Length < 5,
                "Invalid name, too short, minimum 5 characters.");
 
             DomainExceptionValidation.When(price < 0,
@@ -57,50 +57,25 @@ namespace CleanArchMvc.Domain.Entities
               "Invalid imnage name, too long, maximum 250 characters.");
             
                // Set para os parâmetros 
-            SetValues(name, descripition, price, stock, image);
+            SetValues(name, description, price, stock, image);
+
 
         }
 
-        private void SetValues(string name, string descripition, decimal price, int stock, string image)
-        {
-            SetName(name);
-            SetDescription(descripition);
-            SetPrice(price);
-            SetStock(stock);
-            SetImage(image);
-        }
-
-        private void SetImage(string image)
-        {
-            Image = image;
-        }
-
-        private void SetStock(int stock)
-        {
-            Stock = stock;
-        }
-
-        private void SetPrice(decimal price)
-        {
-            Price = price;
-        }
-
-        private void SetDescription(string descripition)
-        {
-            Description = descripition;
-        }
-
-        private void SetName(string name)
+        private void SetValues(string name, string descrpition, decimal price, int stock, string image)
         {
             Name = name;
+            Description = descrpition;
+            Price = price;
+            Stock = stock;
+            Image = image;
         }
-
        
-        public void Update(string name, string descripition, decimal price, int stock, string image, int categoryId)
+        public void Update(string name, string description, decimal price, int stock, string image, int categoryId)
         {
                 // Atualizar registro
 
-            ValidateDomain(name, descripition, price, stock, image);
+            ValidateDomain(name, description, price, stock, image);
             CategoryId = categoryId;
         }
 
