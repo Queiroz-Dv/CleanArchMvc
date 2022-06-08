@@ -5,11 +5,11 @@ namespace CleanArchMvc.Application.Products.Queries
 {
     public class GetProductByIdQuery : IRequest<Product>
     {
-        public GetProductByIdQuery(long id)
+        public GetProductByIdQuery(int id)
         {
             Id = id;
         }
 
-        public long Id { get; set; }
+        public int Id { get; set; }
     }
 }

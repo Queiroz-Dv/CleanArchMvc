@@ -5,11 +5,11 @@ namespace CleanArchMvc.Application.Products.Commands
 {
     public class ProductRemoveCommand : IRequest<Product>
     {
-        public ProductRemoveCommand(long id)
+        public ProductRemoveCommand(int id)
         {
             Id = id;
         }
 
-        public long Id { get; set; }
+        public int Id { get; set; }
     }
 }
