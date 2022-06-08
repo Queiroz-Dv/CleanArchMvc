@@ -2,11 +2,13 @@
 
 namespace CleanArchMvc.Domain.Validation
 {
-    class DomainExceptionValidation : Exception
+        // Classe para tratar excessões que herda de Exception
+    public class DomainExceptionValidation : Exception
     {
         public DomainExceptionValidation(string error)
             : base(error) { }
 
+            // Método que verifica quando há um erro
         public static void When(bool hasError, string error)
         {
             if (hasError)
