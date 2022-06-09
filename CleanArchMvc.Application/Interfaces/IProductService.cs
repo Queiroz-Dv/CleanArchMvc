@@ -8,14 +8,14 @@ namespace CleanArchMvc.Application.Interfaces
     {
         Task<IEnumerable<ProductDTO>> GetProducts();
 
-        Task<ProductDTO> GetById(int? id);
+        //Task<ProductDTO> GetById(int? id);
 
-        Task<ProductDTO> GetProductCategory(int? id);
+        //Task<ProductDTO> GetProductCategory(int? id);
 
-        Task Add(ProductDTO productDTO);
+        //Task Add(ProductDTO productDTO);
 
-        Task Update(ProductDTO productDTO);
+        //Task Update(ProductDTO productDTO);
 
-        Task Remove(int? id);
+        //Task Remove(int? id);
     }
 }
