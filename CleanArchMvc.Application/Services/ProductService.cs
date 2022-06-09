@@ -30,10 +30,6 @@ namespace CleanArchMvc.Application.Services
 
             var result = await _mediator.Send(productsQuery);
             return _mapper.Map<IEnumerable<ProductDTO>>(result);
-
-
-            //var productsEntity = await _productRepository.GetProductsAsync();
-            //return _mapper.Map<IEnumerable<ProductDTO>>(productsEntity);
         }
 
         public async Task<ProductDTO> GetById(int? id)
