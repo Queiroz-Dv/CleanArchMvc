@@ -39,7 +39,7 @@ namespace CleanArchMvc.UI.Controllers
             return View(category);
         }
 
-        [HttpGet]
+        [HttpGet()]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -67,6 +67,24 @@ namespace CleanArchMvc.UI.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(categoryDTO);
+        }
+
+        [HttpGet()]
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+                return NotFound();
+            var categoryDto = await _categoryService.GetById(id);
+            if (categoryDto == null)
+                return NotFound();
+            return View(categoryDto);
+        }
+
+        [HttpPost(), ActionName("Delete")]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            await _categoryService.Remove(id);
+            return RedirectToAction("Index");
         }
     }
 }
