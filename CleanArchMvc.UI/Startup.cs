@@ -19,7 +19,7 @@ namespace CleanArchMvc.UI
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddInfrastrucuture(Configuration);
+            services.AddInfrastructure(Configuration);
             services.AddControllersWithViews();
         }
 
