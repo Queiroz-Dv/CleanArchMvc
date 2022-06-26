@@ -1,3 +1,4 @@
+using CleanArchMvc.Domain.Account;
 using CleanArchMvc.Infra.IoC;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -18,12 +19,12 @@ namespace CleanArchMvc.UI
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddInfrastrucuture(Configuration);
+            services.AddInfrastructure(Configuration);
             services.AddControllersWithViews();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ISeedUserRoleInitial seedUserRoleInitial)
         {
             if (env.IsDevelopment())
             {
@@ -39,6 +40,11 @@ namespace CleanArchMvc.UI
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            seedUserRoleInitial.SeedRoles();
+            seedUserRoleInitial.SeedUsers();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
