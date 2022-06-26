@@ -15,10 +15,10 @@ using System;
 
 namespace CleanArchMvc.Infra.IoC
 {
-    public static class DependecyInjection
+    public static class DependecyInjectionAPI
     {
-        public static IServiceCollection AddInfrastructure(this IServiceCollection services,
-            IConfiguration configuration)
+        public static IServiceCollection AddInfrastructureAPI(this IServiceCollection services,
+                   IConfiguration configuration)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")
@@ -28,18 +28,13 @@ namespace CleanArchMvc.Infra.IoC
                     .AddEntityFrameworkStores<ApplicationDbContext>()
                     .AddDefaultTokenProviders();
 
-            services.ConfigureApplicationCookie(options =>
-            options.AccessDeniedPath = "/Account/Lgoin");
-
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<ICategoryService, CategoryService>();
 
             services.AddScoped<IAuthenticate, AuthenticateService>();
-            services.AddScoped<ISeedUserRoleInitial, SeedUserRoleInitial>();
-
-
+            
             services.AddAutoMapper(typeof(DomainToDTOMappingProfile));
 
             var myHandlers = AppDomain.CurrentDomain.Load("CleanArchMvc.Application");
