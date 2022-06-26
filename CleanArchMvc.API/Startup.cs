@@ -17,16 +17,18 @@ namespace CleanArchMvc.API
 
         public IConfiguration Configuration { get; }
 
-    
+
         public void ConfigureServices(IServiceCollection services)
+        {
+            ConfigureInfraServices(services);
+        }
+
+        private void ConfigureInfraServices(IServiceCollection services)
         {
             services.AddInfrastructureAPI(Configuration);
             services.AddInfrastructureJWT(Configuration);
+            services.AddInfrastructureSwagger();
             services.AddControllers();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "CleanArchMvc.API", Version = "v1" });
-            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -38,12 +40,15 @@ namespace CleanArchMvc.API
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "CleanArchMvc.API v1"));
             }
 
+            ConfigureApp(app);
+        }
+
+        private static void ConfigureApp(IApplicationBuilder app)
+        {
             app.UseHttpsRedirection();
-
+            app.UseStatusCodePages();
             app.UseRouting();
-
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

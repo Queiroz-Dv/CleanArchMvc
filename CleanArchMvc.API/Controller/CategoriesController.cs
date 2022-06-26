@@ -1,5 +1,6 @@
 ﻿using CleanArchMvc.Application.DTO;
 using CleanArchMvc.Application.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -8,6 +9,7 @@ namespace CleanArchMvc.API.Controller
 {
     [Route("api/[controller]")] // Rota da api
     [ApiController] // Permite habilitar outros serviços para api
+    [Authorize]
     public class CategoriesController : ControllerBase // Controller base omite o acesso a views
     {
         private readonly ICategoryService _categoryService;
