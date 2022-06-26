@@ -59,18 +59,18 @@ namespace CleanArchMvc.Infra.Data.Identity
         {
             if (!_roleManager.RoleExistsAsync("User").Result)
             {
-                IdentityRole role = new IdentityRole();
+                IdentityRole role = new();
                 role.Name = "User";
                 role.NormalizedName = "USER";
-                IdentityResult roleResult = _roleManager.CreateAsync(role).Result;
+                _ = _roleManager.CreateAsync(role).Result;
             }
 
             if (!_roleManager.RoleExistsAsync("Admin").Result)
             {
-                IdentityRole role = new IdentityRole();
+                IdentityRole role = new();
                 role.Name = "Admin";
                 role.NormalizedName = "ADMIN";
-                IdentityResult roleResult = _roleManager.CreateAsync(role).Result;
+                _ = _roleManager.CreateAsync(role).Result;
             }
         }
     }
