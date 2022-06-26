@@ -17,18 +17,20 @@ namespace CleanArchMvc.API
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddInfrastructureAPI(Configuration);
-            services.AddControllers();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "CleanArchMvc.API", Version = "v1" });
-            });
+            ConfigureInfraServices(services);
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        private void ConfigureInfraServices(IServiceCollection services)
+        {
+            services.AddInfrastructureAPI(Configuration);
+            services.AddInfrastructureJWT(Configuration);
+            services.AddInfrastructureSwagger();
+            services.AddControllers();
+        }
+
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -38,12 +40,15 @@ namespace CleanArchMvc.API
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "CleanArchMvc.API v1"));
             }
 
+            ConfigureApp(app);
+        }
+
+        private static void ConfigureApp(IApplicationBuilder app)
+        {
             app.UseHttpsRedirection();
-
+            app.UseStatusCodePages();
             app.UseRouting();
-
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
