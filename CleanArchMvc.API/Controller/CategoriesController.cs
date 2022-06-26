@@ -50,7 +50,7 @@ namespace CleanArchMvc.API.Controller
                                              categoryDTO);
         }
 
-        [HttpPut]
+        [HttpPut("{id:int}")]
         public async Task<ActionResult> Put(int id, [FromBody] CategoryDTO categoryDTO)
         {
             if (id != categoryDTO.Id)
